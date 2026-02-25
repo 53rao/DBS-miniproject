@@ -1,0 +1,25 @@
+// Setup Link :  https://www.prisma.io/docs/prisma-orm/quickstart/postgresql
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+}
+model Movie{
+    id Int @id @default(autoincrement())
+    title String
+    synopsis String?
+    runtime Int?
+    release_date DateTime?
+    release_type String
+    classification String
+    collection_name String
+    age_rating String
+    trailer_url String?
+    banner_url String
+    poster_url String
+    ott_url String?
+    ott_platform String?
+    country String
+    created_at DateTime @default(now())
+}
