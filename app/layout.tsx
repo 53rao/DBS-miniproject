@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
-
+import NextTopLoader from "nextjs-toploader";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -32,9 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-      className={`${inter.variable} ${playfair.variable} ${jetBrains.variable} antialiased`}
+      className={`${inter.variable} ${playfair.variable} ${jetBrains.variable} antialiased `}
       >
-       
+       <NextTopLoader color="orange"/>
         {children}
       </body>
     </html>

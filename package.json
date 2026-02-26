@@ -21,7 +21,9 @@
     "pg": "^8.18.0",
     "prisma": "^7.4.1",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-slideshow-image": "^4.4.0",
+    "tailwind-scrollbar": "^4.0.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
