@@ -13,9 +13,9 @@ function Slidseshow() {
     
         useEffect(() => {
             const fetchMovies = async () => {
-               const res = await fetch("/api/movies");
+               const res = await fetch("/api/movies/collection/top10");
                const { data } = await res.json(); 
-                setMovies(data);
+                setMovies(data.movies);
                 console.log(data)
             };
             fetchMovies();
@@ -41,10 +41,10 @@ function Slidseshow() {
         
     }
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative overflow-hidden">
       <Zoom {...zoomProps}>
         {images.map((image, index) => (
-          <div key={index} className="relative w-full h-screen"> 
+          <div key={index} className="relative h-[68vh] md:h-screen "> 
             <Image
               className="object-cover opacity-60"
               src={image.banner_url}
@@ -52,19 +52,23 @@ function Slidseshow() {
               alt={`Slide ${index + 1}`}
               priority={index === 0}
             />
-            <div className="content absolute bottom-20 z-10 left-4 flex flex-col  w-[40vw] overflow-hidden gap-y-2 justify-start h-[40vh] mx-10">
+          <div className="mobile absolute z-10 bottom-0 left-0 right-0  md:hidden flex">
+                    <h1 className="text-2xl md:text-6xl text-white font-[family-name:var(--font-playfair)] font-bold ">{image.title}</h1>
+                    
+          </div>
+
+            <div className="content hidden md:flex absolute bottom-0 md:bottom-20 z-10 left-4  flex-col  md:w-[40vw] overflow-hidden gap-y-2 justify-start md:h-[40vh] md:mx-10">
               <h1 className="bg-amber-600/10 text-[#f97316] w-fit px-4 py-0.5 border-1 rounded-sm border-amber-600 text-sm"> 🔥 Featured Film</h1>
-              <h1 className="text-6xl text-white font-[family-name:var(--font-playfair)] font-bold ">{image.title}</h1>
+              <h1 className="text-2xl md:text-6xl text-white font-[family-name:var(--font-playfair)] font-bold ">{image.title}</h1>
               <div className=" gap-4  flex">
-                <div className="">Mins : {image?.runtime??"**"}</div>
-                <div >{new Date(image.release_date).getFullYear()}</div>
+                <div className="hidden md:flex">Mins : {image?.runtime??"**"}</div>
               </div>
-              <div className="text-sm text-[#ffffffaa]">{image?.synopsis}</div>
-              <a href={image.trailer_url} target="blank" className="py-2 px-6 bg-[#f97316] text-white w-fit text-md my-4 flex gap-2 items-center rounded-md ">
+              <div className="text-sm text-[#ffffffaa] hidden md:flex">{image?.synopsis}</div>
+              <a href={image.trailer_url} target="blank" className="py-2 px-6 bg-[#f97316] text-white w-fit  text-sm md:text-md my-4 flex gap-2 items-center rounded-md ">
                 <Play fill="white" stroke="white"/>
                 Watch Now</a>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+            <div className="md:absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
           </div>
         ))}

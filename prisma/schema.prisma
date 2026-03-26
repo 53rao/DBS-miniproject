@@ -1,19 +1,21 @@
 // Setup Link :  https://www.prisma.io/docs/prisma-orm/quickstart/postgresql
+
 generator client {
   provider = "prisma-client-js"
 }
 datasource db {
   provider = "postgresql"
 }
+
 model Movie{
     id Int @id @default(autoincrement())
     title String
     synopsis String?
     runtime Int?
     release_date DateTime?
-    release_type String
-    classification String
-    collection_name String
+    release_type String?
+    classification String?
+    collection_name String?
     age_rating String
     trailer_url String?
     banner_url String
@@ -22,4 +24,363 @@ model Movie{
     ott_platform String?
     country String
     created_at DateTime @default(now())
+    genres Genre[]
+    language Language[]
+    moviecast MovieCast[]
+    collections Collection[]
+    watchlists Watchlist[]
+    articles Article[]
+    ratings Ratings[]
+    
+}
+
+model Genre{
+  id Int @id @default(autoincrement())
+  genre_name  Genre_Name @unique
+  movies Movie[]
+}
+model Language{
+  id Int @id @default(autoincrement())
+  name Language_Name @unique
+  is_original Boolean @default(false)
+  movies Movie[]
+}
+model People{
+  id Int @id @default(autoincrement())
+  name String 
+  professions Profession[]
+  biography String?
+  profile_url String?
+  banner_url String?
+  cast MovieCast[] // to get charcater name too
+}
+model MovieCast{
+  id Int @id @default(autoincrement())
+  character_name String?
+  role Profession?
+  
+  movie Movie @relation(fields: [movie_id], references: [id])
+  movie_id  Int
+  person    People @relation(fields: [person_id], references: [id])
+  person_id Int
+  
+}
+model Collection{
+  id Int @id @default(autoincrement())
+  title String
+  movies Movie[]
+  cover_url String
+  banner_url String
+  description String?
+  created_at DateTime @default(now())
+}
+model User{
+  id Int @id @default(autoincrement())
+  username String? @unique
+  email String @unique
+  name String
+  image String?
+  google_id String @unique
+  role Role @default(GUEST)
+  password String?
+  is_active Boolean @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  watchlists Watchlist?
+  comments Comments[]
+  articles Article[]
+  ratings Ratings[]
+
+}
+
+model Watchlist {
+  collection_id Int @id @default(autoincrement())
+  created_at    DateTime       @default(now())
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id Int    @unique
+  movies Movie[]
+}
+model Article{
+  article_id Int @id @default(autoincrement())
+  author_id Int
+  user User   @relation(fields: [author_id], references: [id])
+  movie_id Int?
+  movie Movie? @relation(fields: [movie_id],references: [id])
+
+  cover_url String
+  status Approval @default(PROCESSING)
+  content String
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  published_at DateTime?
+  comments Comments[]
+}
+model Comments{
+  comment_id Int @id @default(autoincrement())
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+  comment_text String
+  created_at DateTime @default(now())
+  article_id Int
+  article Article @relation(fields: [article_id],references: [article_id])
+  
+}
+
+model Ratings{
+  rating_id Int @id @default(autoincrement())
+  movie_id Int
+
+  movie Movie @relation(fields: [movie_id],references: [id])
+  created_at DateTime @default(now())
+  user  User @relation(fields: [user_id], references: [id])
+  user_id    Int
+  
+  rating RatingType 
+  @@unique([user_id, movie_id])
+}
+
+//Defining Types
+enum Approval{
+  APPROVED
+  DENIED
+  PROCESSING
+}
+enum RatingType{
+  SKIP 
+  ONE_TIME_WATCH
+  MID
+  GO_FOR_IT
+  ABSOLUTE_CINEMA
+}
+enum WatchlistType {
+  WATCHLIST
+  WATCHED
+  RECOMMENDED
+  RATED
+}
+enum Role{
+    ADMIN
+    AUTHOR
+    USER
+    GUEST
+}
+enum Genre_Name{
+  ACTION
+  ADVENTURE
+  MARTIAL_ARTS
+  SUPERHERO
+  SPY
+  HEIST
+  SURVIVAL
+  DISASTER
+  MILITARY
+  MERCENARY
+  BOUNTY_HUNTER
+  THRILLER
+  PSYCHOLOGICAL
+  MYSTERY
+  CRIME
+  NOIR
+  TRUE_CRIME
+  CONSPIRACY
+  LEGAL
+  DETECTIVE
+  WHODUNIT
+  HORROR
+  SLASHER
+  SUPERNATURAL
+  PARANORMAL
+  CREATURE_FEATURE
+  ZOMBIE
+  VAMPIRE
+  WEREWOLF
+  FOLK_HORROR
+  BODY_HORROR
+  FOUND_FOOTAGE
+  COSMIC_HORROR
+  GOTHIC
+  HAUNTED_HOUSE
+  DRAMA
+  ROMANCE
+  HISTORICAL
+  BIOGRAPHICAL
+  POLITICAL
+  WAR
+  MEDICAL
+  LEGAL_DRAMA
+  FAMILY_DRAMA
+  SOCIAL
+  COMING_OF_AGE
+  TRAGEDY
+  MELODRAMA
+  PERIOD_DRAMA
+  COMEDY
+  DARK_COMEDY
+  ROMANTIC_COMEDY
+  PARODY
+  SATIRE
+  SLAPSTICK
+  MOCKUMENTARY
+  STAND_UP
+  SKETCH
+  SCIENCE_FICTION
+  CYBERPUNK
+  STEAMPUNK
+  DYSTOPIAN
+  UTOPIAN
+  POST_APOCALYPTIC
+  TIME_TRAVEL
+  SPACE_OPERA
+  ALIEN
+  BIOPUNK
+  SOLARPUNK
+  HARD_SCIFI
+  SOFT_SCIFI
+  MECHA
+  FANTASY
+  HIGH_FANTASY
+  LOW_FANTASY
+  DARK_FANTASY
+  URBAN_FANTASY
+  EPIC_FANTASY
+  FAIRY_TALE
+  MYTHOLOGY
+  SWORD_AND_SORCERY
+  PORTAL_FANTASY
+  ISEKAI
+  CULTIVATION
+  WUXIA
+  XIANXIA
+  ANIMATION
+  STOP_MOTION
+  CGI
+  SHONEN
+  SHOJO
+  SEINEN
+  JOSEI
+  KODOMOMUKE
+  SLICE_OF_LIFE
+  ISEKAI_REINCARNATION
+  MAGICAL_GIRL
+  SCHOOL
+  HAREM
+  REVERSE_HAREM
+  ECCHI
+  SPORTS_ANIME
+  MUSIC_ANIME
+  COOKING_ANIME
+  GAME_ANIME
+  IDOL_ANIME
+  VILLAINESS
+  ISEKAI_VILLAINESS
+  DEMON_SLAYER_TYPE
+  MOE
+  IYASHIKEI
+  BATTLE_SHONEN
+  POWER_FANTASY
+  REVERSE_ISEKAI
+  OTOME_GAME
+  DUNGEON
+  VIRTUAL_REALITY
+  CARD_GAME
+  TOURNAMENT
+  ALCHEMY
+  NINJA
+  SAMURAI
+  PIRATE
+  SPACE_ANIME
+  PSYCHOLOGICAL_ANIME
+  HORROR_ANIME
+  ROMANCE_ANIME
+  DRAMA_ANIME
+  COMEDY_ANIME
+  CRIME_ANIME
+  SUPERNATURAL_ANIME
+  HISTORICAL_ANIME
+  SCI_FI_ANIME
+  DONGHUA
+  PROCEDURAL
+  ANTHOLOGY
+  MINI_SERIES
+  SOAP_OPERA
+  TELENOVELA
+  REALITY
+  TALK_SHOW
+  GAME_SHOW
+  NEWS
+  DOCUSERIES
+  LIMITED_SERIES
+  WEBSERIES
+  DOCUMENTARY
+  NATURE
+  BIOGRAPHY
+  TRAVEL
+  FOOD_DOC
+  HISTORY_DOC
+  SCIENCE_DOC
+  CRIME_DOC
+  SPORTS_DOC
+  MUSIC_DOC
+  FAMILY
+  KIDS
+  MUSICAL
+  CONCERT
+  SPORTS
+  EXPERIMENTAL
+  SHORT_FILM
+  SILENT
+  EROTIC
+  WESTERN
+  ROAD_MOVIE
+  BUDDY
+  ENSEMBLE
+}
+
+enum Language_Name {
+  ENGLISH
+  SPANISH
+  FRENCH
+  HINDI
+  MANDARIN
+  CANTONESE
+  JAPANESE
+  KOREAN
+  GERMAN
+  ITALIAN
+  PORTUGUESE
+  RUSSIAN
+  ARABIC
+  TURKISH
+  TAMIL
+  TELUGU
+  MALAYALAM
+  KANNADA
+  BENGALI
+  MARATHI
+  PUNJABI
+  URDU
+  THAI
+  INDONESIAN
+  SWEDISH
+  DANISH
+  NORWEGIAN
+  DUTCH
+  POLISH
+  UKRAINIAN
+  PERSIAN
+  HEBREW
+  TULU
+}
+enum Profession {
+  ACTOR
+  DIRECTOR
+  PRODUCER
+  WRITER
+  CINEMATOGRAPHER
+  COMPOSER
+  EDITOR
+  COSTUME_DESIGNER
+  VOICE_ACTOR
+  ANIMATOR
 }
