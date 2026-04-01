@@ -17,11 +17,13 @@
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.575.0",
     "next": "16.1.6",
+    "next-auth": "^5.0.0-beta.30",
     "nextjs-toploader": "^3.9.17",
     "pg": "^8.18.0",
     "prisma": "^7.4.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-hot-toast": "^2.6.0",
     "react-slideshow-image": "^4.4.0",
     "tailwind-scrollbar": "^4.0.2"
   },

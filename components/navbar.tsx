@@ -1,8 +1,10 @@
 "use client"
+import { Suspense } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu ,X} from "lucide-react";
+import { auth } from "@/auth";
 const obj=[
     {title:"Home",url:"/explore"},
     {title:"Articles",url:"/articles"},
@@ -11,7 +13,8 @@ const obj=[
     {title:"Search",url:"/search"}
 
 ]
-export default function Navbar() {
+export default  function Navbar() {
+    
     const path=usePathname()
     const [Open,setOpen]=useState(false)
 
@@ -34,7 +37,8 @@ export default function Navbar() {
         ))}
     </div>
 }
-    <div className={`user hidden w-8 h-8 md:flex bg-zinc-600 rounded-full`}></div>
+        <div className={`user hidden w-8 h-8 md:flex bg-zinc-600 rounded-full`}></div>
+
     {Open ? <X onClick={toggle} size={30} className="md:hidden"/> : <Menu onClick={toggle} size={30} className="md:hidden"/>}
     
     </nav>

@@ -1,29 +1,46 @@
 "use client"
-import Image from 'next/image'
 
-import Navbar from "../components/navbar";
 import { useEffect,useState } from 'react';
-import { Movie } from '../types';
-import Hero from '../sections/hero';
-import Card1 from '../components/card1';
-export default  function Explore() {
+import { useRouter,useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
+import { Movie } from '@/lib/types';
+import Card1 from "@/components/card1";
+import Navbar from '@/components/navbar';
+import Hero from '@/sections/hero';
+
+
+
+const messages: Record<string, string> = {
+  not_admin: "Only admins can view that page",
+}
+export  default   function Explore() {
     const [movies, setMovies] = useState<Movie[]>([]);
-    const [heroMovies,setHeroMovies]=useState<Movie[]>([]);
+      const searchParams = useSearchParams()
+    const router= useRouter()
     useEffect(() => {
         const fetchMovies = async () => {
            const res = await fetch("/api/movies");
            const { data } = await res.json(); 
-           
+           const error = searchParams.get("error")
             setMovies(data);
-            console.log(data)
+            
         };
         
         fetchMovies();
     }, []);
 
+    useEffect(() => {
+      const error = searchParams.get("error")
+      if (error && messages[error]) {
+        toast.error(messages[error])
+        router.replace("/explore", { scroll: false })
+      }
+    }, [searchParams]);
+
   return (
+    
     <div className="relative bg-black min-h-screen  w-screen overflow-hidden flex flex-col items-center">
-      <Navbar />
+      <Navbar/>
       <main className=" w-screen   md:min-h-screen ">
         <div className=" hero w-full  md:h-screen relative">
              <Hero/>

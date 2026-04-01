@@ -6,7 +6,7 @@ import Image from "next/image"
 import "react-slideshow-image/dist/styles.css"
 
 import { Play } from "lucide-react";
-import { Movie } from "../types";
+import { Movie } from "@/lib/types";
 function Slidseshow() {
     
      const [images, setMovies] = useState<Movie[]>([]);

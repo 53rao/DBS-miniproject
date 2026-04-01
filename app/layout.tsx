@@ -3,6 +3,8 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
+import { SessionProvider } from "next-auth/react"
+import { Toaster } from "react-hot-toast";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -34,8 +36,22 @@ export default function RootLayout({
       <body
       className={`${inter.variable} ${playfair.variable} ${jetBrains.variable} antialiased `}
       >
+
        <NextTopLoader color="orange"/>
-        {children}
+        <SessionProvider>
+          {children}
+          <Toaster 
+  position="bottom-right"
+  reverseOrder={false}
+  toastOptions={{
+    style: {
+      borderRadius: '10px',
+      background: '#333',
+      color: '#fff',
+    },
+  }}
+/>
+        </SessionProvider>
       </body>
     </html>
   );

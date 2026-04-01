@@ -1,11 +1,13 @@
-import { Movie } from "../types"
+import { NextResponse } from "next/server";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation"
+import { Movie } from "@/lib/types";
 export default function Card1({ movie }: { movie: Movie }){
+    const router =useRouter()
     return(
         
         <>
-            <div className="relative w-[170px] h-[260px] md:w-[225px] md:h-[340px] rounded-xl overflow-hidden group  origin-bottom transition-transform duration-300 ease-out hover:scale-105">
+            <div className="relative w-[170px] h-[260px] md:w-[225px] md:h-[340px] rounded-xl overflow-hidden group  origin-bottom transition-transform duration-300 ease-out hover:scale-105" onClick={()=>router.push(`/movie/${movie.id}`)}>
             <Image
                 src={movie.poster_url}
                 alt={movie.title}

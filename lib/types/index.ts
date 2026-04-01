@@ -5,16 +5,49 @@ export enum Role{
     GUEST="GUEST"
 }
 export interface Movie{
-
+    id:number,
+    title:string,
+    synopsis:string,
+    runtime:number,
+    release_date:Date,
+    release_type:string,
+    classification:string,
+    collection_name:string,
+    age_rating:string,
+    trailer_url:string,
+    banner_url:string,
+    poster_url:string,
+    ott_url:string,
+    ott_platform:string
+    country:string,
+    created_at:Date
 }
-export interface User{
-
+export interface MovieDetails {
+  title: string
+  synopsis: string | null
+  runtime: number | null
+  release_date: Date | null
+  release_type: string | null
+  classification: string | null
+  collection_name: string | null
+  age_rating: string
+  trailer_url: string | null
+  banner_url: string
+  poster_url: string
+  ott_url: string | null
+  ott_platform: string | null
+  country: string
+  created_at: Date
 }
-export interface ratingType{
-    
-}
-export interface ratings{
-
+export type AppUser = {
+  id?: number
+  name: string
+  email: string
+  image: string | null
+  role?: string
+  username?: string | null
+  is_active?: boolean
+  google_id?: string
 }
 export enum Genre {
   ACTION = "ACTION",
