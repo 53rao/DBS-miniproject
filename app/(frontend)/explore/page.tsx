@@ -7,13 +7,14 @@ import { Movie } from '@/lib/types';
 import Card1 from "@/components/card1";
 import Navbar from '@/components/navbar';
 import Hero from '@/sections/hero';
-
-
+import { auth } from '@/auth';
 
 const messages: Record<string, string> = {
   not_admin: "Only admins can view that page",
 }
 export  default   function Explore() {
+    
+
     const [movies, setMovies] = useState<Movie[]>([]);
       const searchParams = useSearchParams()
     const router= useRouter()

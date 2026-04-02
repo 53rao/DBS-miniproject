@@ -39,6 +39,46 @@ export interface MovieDetails {
   country: string
   created_at: Date
 }
+export interface Articles{
+  article_id: number
+  author_id: number
+  article_title:string
+  user: User
+  movie_id: number | null
+  movie: Movie | null
+
+  cover_url: string
+  status: Approval
+  content: string
+  created_at: Date
+  updated_at: Date
+  published_at: Date | null
+  comments: comments[]
+}
+enum Approval{
+  APPROVED,
+  DENIED,
+  PROCESSING
+}
+export interface comments{
+    comment_id  :string,
+  user_id : string,
+  user :User,
+  comment_text :string,
+  created_at: Date,
+  article_id :string,
+  article:Articles
+}
+export type User = {
+  id?: number
+  name: string
+  email: string
+  image: string | null
+  role?: string
+  username?: string | null
+  is_active?: boolean
+  google_id?: string
+}
 export type AppUser = {
   id?: number
   name: string

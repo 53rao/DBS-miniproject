@@ -109,7 +109,7 @@ model Article{
   user User   @relation(fields: [author_id], references: [id])
   movie_id Int?
   movie Movie? @relation(fields: [movie_id],references: [id])
-
+  article_title String
   cover_url String
   status Approval @default(PROCESSING)
   content String

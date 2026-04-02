@@ -7,7 +7,7 @@ export async function proxy(req: NextRequest) {
 
   const isLoginPage = pathname === "/" || pathname === "/login"
   const isSetupPage = pathname === "/setup-profile"
-  const isPublic = pathname.startsWith("/api/auth") || pathname.startsWith("/api/user") || pathname.startsWith("/api/movies") && req.method === "GET"
+  const isPublic = pathname.startsWith("/api/auth") || pathname.startsWith("/api/user") || pathname.startsWith("/api/movies") && req.method === "GET" || pathname.startsWith("/api/articles");
 
   if (isPublic) return NextResponse.next()
 

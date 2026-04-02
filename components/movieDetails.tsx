@@ -42,6 +42,7 @@ export default  function MovieDetail({params}:{params:{id:string}}){
                
                 {movie?.title}
             </div>
+            
         </div>
     )
         
@@ -70,11 +71,19 @@ export default  function MovieDetail({params}:{params:{id:string}}){
                         />
                      )}
                 </div>
-                <div className="px-10 translate-y-2/4 flex flex-col text-zinc-100">
-                      <div className="text-md flex gap-2">
-                        <div>{movie?.classification}</div>
+                <div className="px-10 translate-y-2/4 flex flex-col text-zinc-400">
+                      <div className="text-md flex gap-2 ">
+                        <div>{movie?.classification} • </div>
+                        <div>{movie?.runtime} Mins •</div>
+                        <div>{movie?.release_date && new Date(movie.release_date).getFullYear()} </div>
                       </div>
-                     <div className="text-4xl font-bold">{movie?.title}</div>
+                     <div className="text-6xl font-bold text-white">{movie?.title}</div>
+                </div>
+                <div className="px-10 translate-y-2/4 flex flex-col text-zinc-400">
+                      <div className="text-md flex gap-2 ">
+                        Watch Now
+                      </div>
+                     
                 </div>
 
             </div>

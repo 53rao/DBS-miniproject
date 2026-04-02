@@ -4,9 +4,13 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "*.ufs.sh",
-      },
+      protocol: "https",
+      hostname: "*.ufs.sh",
+    },
+    {
+      protocol: "https",
+      hostname: "lh3.googleusercontent.com",
+    },
     ],
   },
 };
