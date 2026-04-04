@@ -89,7 +89,7 @@ export type AppUser = {
   is_active?: boolean
   google_id?: string
 }
-export enum Genre {
+export enum Genre_Name {
   ACTION = "ACTION",
   ADVENTURE = "ADVENTURE",
   MARTIAL_ARTS = "MARTIAL_ARTS",
@@ -273,4 +273,39 @@ export enum Genre {
   ROAD_MOVIE = "ROAD_MOVIE",
   BUDDY = "BUDDY",
   ENSEMBLE = "ENSEMBLE",
+}
+export enum Language_Name {
+  ENGLISH = "ENGLISH",
+  SPANISH = "SPANISH",
+  FRENCH = "FRENCH",
+  HINDI = "HINDI",
+  MANDARIN = "MANDARIN",
+  CANTONESE = "CANTONESE",
+  JAPANESE = "JAPANESE",
+  KOREAN = "KOREAN",
+  GERMAN = "GERMAN",
+  ITALIAN = "ITALIAN",
+  PORTUGUESE = "PORTUGUESE",
+  RUSSIAN = "RUSSIAN",
+  ARABIC = "ARABIC",
+  TURKISH = "TURKISH",
+  TAMIL = "TAMIL",
+  TELUGU = "TELUGU",
+  MALAYALAM = "MALAYALAM",
+  KANNADA = "KANNADA",
+  BENGALI = "BENGALI",
+  MARATHI = "MARATHI",
+  PUNJABI = "PUNJABI",
+  URDU = "URDU",
+  THAI = "THAI",
+  INDONESIAN = "INDONESIAN",
+  SWEDISH = "SWEDISH",
+  DANISH = "DANISH",
+  NORWEGIAN = "NORWEGIAN",
+  DUTCH = "DUTCH",
+  POLISH = "POLISH",
+  UKRAINIAN = "UKRAINIAN",
+  PERSIAN = "PERSIAN",
+  HEBREW = "HEBREW",
+  TULU = "TULU"
 }

@@ -11,6 +11,7 @@ type GoogleProfile = {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
   providers: [Google],
   callbacks: {
     async signIn({ user, account }) {

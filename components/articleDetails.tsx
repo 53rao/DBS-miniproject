@@ -110,7 +110,9 @@ export default  function ArticleDetails({params}:{params:{article_id:string}}){
                     <div className="flex flex-col gap-y-4 mt-10">
                         <h1 className="text-4xl font-serif font-bold text-orange-500">Related Articles</h1>
                         <div className="bg-zinc-800  shrink=0 w-100 h-100"></div>
-                        <div className="bg-zinc-800  shrink=0 w-100 h-50 flex items-center  text-2xl justify-center font-bold">Ad's Soon</div>
+                        <div className="bg-zinc-800  shrink=0 w-100 h-50 flex items-center  text-2xl justify-center font-bold"> 
+                            Ad's Soon
+                        </div>
                     </div>
                 </div>
                

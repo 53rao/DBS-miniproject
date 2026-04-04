@@ -7,12 +7,11 @@ import { Movie } from '@/lib/types';
 import Card1 from "@/components/card1";
 import Navbar from '@/components/navbar';
 import Hero from '@/sections/hero';
-import { auth } from '@/auth';
-
+import { Suspense } from 'react';
 const messages: Record<string, string> = {
   not_admin: "Only admins can view that page",
 }
-export  default   function Explore() {
+ function Explore() {
     
 
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -59,4 +58,11 @@ export  default   function Explore() {
       
     </div>
   );
+}
+export default function ExplorePage(){
+  return (
+    <Suspense>
+      <Explore />
+    </Suspense>
+  )
 }

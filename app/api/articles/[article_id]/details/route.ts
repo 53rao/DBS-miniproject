@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ article_id: string }> }  // ✅ Promise
+  { params }: { params: Promise<{ article_id: string }> }  
 ) {
-  const { article_id } = await params;  // ✅ await it
+  const { article_id } = await params;  
   const requiredid = Number(article_id);
 
   if (isNaN(requiredid)) {

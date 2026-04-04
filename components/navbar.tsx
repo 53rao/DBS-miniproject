@@ -23,11 +23,14 @@ export default function Navbar() {
   const { data: session } = useSession()
 
   useEffect(() => {
+    const setRoleMethod=async ()=>{
     if (session?.user) {
       const user = session.user as unknown as AppUser
       setRole(user?.role ?? null)
       setImage(user?.image ?? null)
     }
+    }
+    setRoleMethod()
   }, [session])
 
   return (
